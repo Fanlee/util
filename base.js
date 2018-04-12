@@ -78,15 +78,25 @@ var Base = {
    * @param {Function} func 回调函数
    * @param {Number} wait 间隔时间
    */
-  throttle: function(func, wait){
+  throttle: function(func, wait) {
     var previous = 0
 
-    return function(){
+    return function() {
       var now = Date.now()
-      if(now - previous > wait){
+      if (now - previous > wait) {
         func.apply(this, arguments)
         previous = now
       }
     }
+  },
+  /**
+   * 数组去重
+   * @param {Array} array 需要去重的数组
+   */
+  unique: function(array) {
+    var obj = {}
+    return array.filter(function(item) {
+      return obj.hasOwnProperty(typeof item + JSON.stringify(item)) ? false : (obj[typeof item + JSON.stringify(item)] = true)
+    })
   }
 }

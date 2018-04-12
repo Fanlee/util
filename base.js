@@ -53,42 +53,40 @@ var Base = {
 
   /**
    * 函数防抖
+   *   事件持续触发，但只有等事件停止触发后n秒才执行函数
    * @param {Function} func  回调函数
    * @param {Number} wait  间隔时间
-   * @param {Boolean} immediate 是否在移入的时候立刻执行函数
    */
-  debounce: function(func, wait, immediate) {
-    var timeout, result;
+  debounce: function(func, wait) {
+    var timeout, context, args
 
-    var debounced = function() {
-      // 修复回调函数this,event指向问题
-      var context = this;
-      var args = arguments;
+    return function() {
+      context = this;
+      args = arguments;
 
       if (timeout) clearTimeout(timeout);
 
-      if (immediate) {
-        // 如果已经执行过，不再执行
-        var callNow = !timeout;
-        timeout = setTimeout(function() {
-          timeout = null;
-        }, wait)
-        if (callNow) {
-          result = func.apply(context, args)
-        }
-      } else {
-        timeout = setTimeout(function() {
-          func.apply(context, args)
-        }, wait);
-      }
-      return result
+      timeout = setTimeout(function() {
+        func.apply(context, args)
+      }, wait);
     }
-    // 取消防抖
-    debounced.cancel = function() {
-      clearTimeout(timeout)
-      timeout = null
-    }
+  },
 
-    return debounced
+  /**
+   * 函数节流
+   *    持续触发的时候，每n秒执行一次函数
+   * @param {Function} func 回调函数
+   * @param {Number} wait 间隔时间
+   */
+  throttle: function(func, wait){
+    var previous = 0
+
+    return function(){
+      var now = Date.now()
+      if(now - previous > wait){
+        func.apply(this, arguments)
+        previous = now
+      }
+    }
   }
 }

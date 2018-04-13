@@ -173,6 +173,7 @@ var Base = {
   },
   /**
    * 判断是否是数组或者类数组
+   *    不能检测{a:1, b:2, length:0}这种情况
    */
   isArrayLike: function(obj) {
     var length = !!obj && 'length' in obj && obj.length
@@ -184,5 +185,11 @@ var Base = {
     }
 
     return typeRes === 'array' || length === 0 || typeof length === 'number' && length > 0 && (length - 1) in obj
+  },
+  /**
+   * 判断是否是DOM元素
+   */
+  isElement: function(obj) {
+    return !!(obj && obj.nodeType === 1)
   }
 }

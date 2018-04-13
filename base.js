@@ -89,6 +89,7 @@ var Base = {
       }
     }
   },
+
   /**
    * 数组去重
    * @param {Array} array 需要去重的数组
@@ -99,6 +100,7 @@ var Base = {
       return obj.hasOwnProperty(typeof item + JSON.stringify(item)) ? false : (obj[typeof item + JSON.stringify(item)] = true)
     })
   },
+
   /**
    * 判断数据类型
    * @param {}
@@ -118,6 +120,7 @@ var Base = {
 
     return typeof obj === 'object' || typeof obj === 'function' ? classType[Object.prototype.toString.call(obj)] || 'object' : typeof obj
   },
+
   /**
    * 判断是否是纯粹的对象
    */
@@ -151,8 +154,8 @@ var Base = {
 
     // 在这里判断 Ctor 构造函数是不是 Object 构造函数，用于区分自定义构造函数和 Object 构造函数
     return typeof ctor === 'function' && hasOwn.toString.call(ctor) === hasOwn.toString.call(Object)
-
   },
+
   /**
    * 判断是否是空的对象
    *    for循环一旦执行就说明有属性
@@ -165,12 +168,14 @@ var Base = {
     }
     return true
   },
+
   /**
    * 判断是否有全局的window对象
    */
   isWindow: function(obj) {
     return obj != null && obj.window
   },
+
   /**
    * 判断是否是数组或者类数组
    *    不能检测{a:1, b:2, length:0}这种情况
@@ -186,18 +191,21 @@ var Base = {
 
     return typeRes === 'array' || length === 0 || typeof length === 'number' && length > 0 && (length - 1) in obj
   },
+
   /**
    * 判断是否是DOM元素
    */
   isElement: function(obj) {
     return !!(obj && obj.nodeType === 1)
   },
+
   /**
    * 判断是否是函数
    */
   isFunction: function(obj) {
     return this.type(obj) === 'function'
   },
+
   /**
    * 浅拷贝
    */
@@ -213,6 +221,7 @@ var Base = {
     }
     return newObj
   },
+
   /**
    * 深拷贝
    *  null会被处理成{}（空对象）

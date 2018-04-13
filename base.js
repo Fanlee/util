@@ -193,6 +193,12 @@ var Base = {
     return !!(obj && obj.nodeType === 1)
   },
   /**
+   * 判断是否是函数
+   */
+  isFunction: function(obj) {
+    return this.type(obj) === 'function'
+  },
+  /**
    * 浅拷贝
    */
   shallowCopy: function(obj) {

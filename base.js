@@ -98,5 +98,24 @@ var Base = {
     return array.filter(function(item) {
       return obj.hasOwnProperty(typeof item + JSON.stringify(item)) ? false : (obj[typeof item + JSON.stringify(item)] = true)
     })
+  },
+  /**
+   * 判断数据类型
+   * @param {}
+   */
+  type: function(obj) {
+    var classType = {}
+    var typeArray = ['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Object', 'Error']
+
+    typeArray.map(function(item, index) {
+      classType['[object ' + item + ']'] = item.toLowerCase()
+    })
+
+    // 兼容IE6 中，null 和 undefined 会被 Object.prototype.toString 识别成 [object Object]
+    if (obj == null) {
+      return obj + ''
+    }
+
+    return typeof obj === 'object' || typeof obj === 'function' ? classType[Object.prototype.toString.call(obj)] || 'object' : typeof obj
   }
 }

@@ -242,6 +242,7 @@ var Base = {
    * extend
    */
   extend: function() {
+    debugger
     // 默认不进行深拷贝
     var deep = false
     var name, options, src, copy, clone, copyIsArray
@@ -290,5 +291,13 @@ var Base = {
       }
     }
     return target
+  },
+  /**
+   * 求数组的最大值
+   */
+  max: function(arr) {
+    return arr.reduce(function(prev, next) {
+      return Math.max(prev, next)
+    })
   }
 }
